@@ -7,10 +7,17 @@ const bodyParser=require('body-parser')
 
 // Importing Mongo client
 const MongoClient=require('mongodb').MongoClient
+const { response } = require('express')
+
+
 
 
 // Const app controls the entire app with express functional constructor
 const app=express()
+
+// Setting ejs template engine
+
+
 
 // We are saying expressjs that to use body parser urlencoded to be parsed
 app.use(bodyParser.urlencoded({extended:true}))
@@ -30,7 +37,7 @@ MongoClient.connect(connectionString,{useUnifiedTopology:true})
         app.post('/quotes', (req,res) => {
             quotesCollection.insertOne(req.body)
             .then(result=>{
-                console.log(result)
+                res.send(result)
             })
             .catch(error=>console.error(error))
         })
@@ -39,22 +46,24 @@ MongoClient.connect(connectionString,{useUnifiedTopology:true})
         {
                     db.collection('quotes').find().toArray()
                         .then(result=>{
-                        res.send(result)
+                        res.render('index.ejs',{quotes:result})
                         })
                         .catch(error=>console.error(error))
 
                     })
                 
-        }).catch(console.error)
+        }).catch(console.error)//server connection error
 
 
 
+app.get('/',(req,res)=>
+{
+  res.sendFile(__dirname+'index.html')
+})
 
 
 
-
-
-const PORT=3000
+const PORT=5000
 
 app.listen(PORT,()=>{
 
