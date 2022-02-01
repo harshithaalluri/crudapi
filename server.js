@@ -16,7 +16,7 @@ const app=express()
 app.use(bodyParser.urlencoded({extended:true}))
 
 // Datatbase Connection string
-const connectionString="mongodb+srv://pridhvipinninti:psppsp@cluster0.9qf6s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const connectionString="mongodb+srv://harshithaalluri:Alluri1234@cluster0.chyl9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
         //Connecting the database
         MongoClient.connect(connectionString,{useUnifiedTopology:true})
